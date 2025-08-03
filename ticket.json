@@ -1,0 +1,10 @@
+{
+  "nome":       "FÁTIMA ARAGÕES",
+  "cpf":        "123.456.789-00",
+  "origem":     "SINOP",
+  "destino":    "CUIABÁ",
+  "data":       "14/05/2025",
+  "horario":    "20:30",
+  "assento":    "12A",
+  "localizador":"ABC123"
+}
