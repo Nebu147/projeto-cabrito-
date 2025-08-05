@@ -1,15 +1,50 @@
 {
-  "origem":     [250.2, 540.8],
-  "destino":    [250.2, 580.3],
-  "datahora":   [250.2, 620.1],
-  "poltrona":   [230.0, 658.0],
-  "prefixo":    [200.0, 696.0],
-  "tipo":       [250.2, 734.0],
-  "cpf":        [250.2, 772.0],
-  "passageiro": [120.0, 860.0], 
-  "qrcode":     [150.0, 980.0]
- 
+  "bpe_numero":       {"texto":"BP-e nº ",            "font":"Helvetica-Bold","pt":24,"pos":[30,60],  "align":"left"},
+  "bpe_numero_valor": {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[150,60],  "align":"left"},
+  "bpe_serie_label":  {"texto":" Série ",             "font":"Helvetica-Bold","pt":24,"pos":[430,60], "align":"left"},
+  "bpe_serie_valor":  {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[520,60], "align":"left"},
 
+  "venda_label":      {"texto":"Venda: ",             "font":"Helvetica",     "pt":24,"pos":[300,190],"align":"center"},
+  "venda_valor":      {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[300,190],"align":"center"},
 
+  "origem_label":     {"texto":"ORIGEM: ",            "font":"Helvetica",     "pt":24,"pos":[80,660], "align":"left"},
+  "origem_valor":     {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[260,660],"align":"left"},
+  "destino_label":    {"texto":"DESTINO: ",           "font":"Helvetica",     "pt":24,"pos":[80,700], "align":"left"},
+  "destino_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[260,700],"align":"left"},
+
+  "data_label":       {"texto":"Data: ",              "font":"Helvetica",     "pt":24,"pos":[110,740],"align":"left"},
+  "data_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,740],"align":"left"},
+  "horario_label":    {"texto":" | ",                "font":"Helvetica",     "pt":24,"pos":[400,740],"align":"left"},
+  "horario_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[440,740],"align":"left"},
+
+  "poltrona_label":   {"texto":"(Poltrona: ",         "font":"Helvetica",     "pt":24,"pos":[80,780], "align":"left"},
+  "poltrona_valor":   {"texto":"","font":"Helvetica-Bold","pt":32,"pos":[280,780],"align":"left"},
+  "plataforma_label": {"texto":"Plataforma: ",        "font":"Helvetica",     "pt":24,"pos":[380,780],"align":"left"},
+  "plataforma_valor": {"texto":"","font":"Helvetica",     "pt":28,"pos":[560,780],"align":"left"},
+
+  "prefixo_label":    {"texto":"Prefixo: ",           "font":"Helvetica",     "pt":24,"pos":[80,820], "align":"left"},
+  "prefixo_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,820],"align":"left"},
+  "linha_label":      {"texto":"Linha ",              "font":"Helvetica",     "pt":24,"pos":[380,820],"align":"left"},
+  "linha_valor_1":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,860],"align":"left"},
+  "linha_valor_2":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,900],"align":"left"},
+
+  "tipo_label":       {"texto":"Tipo: ",              "font":"Helvetica",     "pt":24,"pos":[110,940],"align":"left"},
+  "tipo_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,940],"align":"left"},
+
+  "tarifa_valor":        {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1130],"align":"right"},
+  "taxa_embarque_valor": {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1170],"align":"right"},
+  "pedagio_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1210],"align":"right"},
+  "valor_total_valor":   {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1250],"align":"right"},
+  "desconto_valor":      {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1290],"align":"right"},
+  "valor_pagar_valor":   {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1330],"align":"right"},
+
+  "forma_pag_valor":     {"texto":"","font":"Helvetica",     "pt":28,"pos":[100,1400],"align":"left"},
+  "valor_pag_valor":     {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1400],"align":"right"},
+  "troco_valor":         {"texto":"","font":"Helvetica",     "pt":28,"pos":[560,1440],"align":"right"},
+
+  "tipo_desconto_valor": {"texto":"","font":"Helvetica",     "pt":28,"pos":[300,1500],"align":"center"},
+
+  "passageiro_label":   {"texto":"PASSAGEIRO: ",       "font":"Helvetica-Bold","pt":40,"pos":[300,1580],"align":"center"},
+  "passageiro_valor_1": {"texto":"","font":"Helvetica-Bold","pt":40,"pos":[300,1580],"align":"center"},
+  "passageiro_valor_2": {"texto":"","font":"Helvetica-Bold","pt":36,"pos":[300,1630],"align":"center"}
 }
-
