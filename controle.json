@@ -1,16 +1,14 @@
 {
-  "origem":        "SINOP (MT)",
-  "destino":       "CUIABÁ",
-  "data":          "13/05/2025",
-  "horario":       "16:27:00",
-  "poltrona":      "16",
-  "prefixo":       "28410100",
-  "numero_prefixo":"28410100",
-  "linha1":        "CUIABÁ × GUARANTÃ",
-  "linha2":        "DO NORTE",
-  "tipo":          "EXECUTIVO",
-  "executivo":     "EXECUTIVO",
-  "cpf":           "0030040505",
-  "passageiro":    "mario da silva",
-  "passageiro2":   ""
+  "origem": "SINOP (MT)",
+  "destino": "NOVA MUTUM (MT)",
+  "data": "13/05/2025",
+  "hora": "16:27:00",
+  "poltrona": "16",
+  "plataforma": "05",
+  "prefixo": "28410100",
+  "linha1": "CUIABÁ × GUARANTÃ",
+  "linha2": "DO NORTE",
+  "tipo": "EXECUTIVO",
+  "passageiro": "00647397242 – ELIAS DE SOUZA",
+  "passageiro_2": "RIBEIRO"
 }

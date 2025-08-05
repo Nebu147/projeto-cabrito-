@@ -1,128 +1,104 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""
+gera_bilhete.py  –  versão alinhada ao seu projeto
+=================================================
+Arquivos esperados na mesma pasta:
+    • bg_controle.pdf          → fundo oficial (faixa, logo, QR, linhas)
+    • controle.json            → só os dados variáveis (origem, destino…)
+    • coords_controle.json     → layout: pos, font, pt, align
+
+Gera controle_80x130.pdf idêntico ao modelo.
+
+Requisitos:
+    pip install reportlab PyPDF2
+"""
 
 import json
-import logging
-import argparse
 from io import BytesIO
+from pathlib import Path
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-
 from PyPDF2 import PdfReader, PdfWriter
 
-# -------------------------------------------------------------------------
-# LOGGING
-# -------------------------------------------------------------------------
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+# --------------------------------------------------
+# Parâmetros do cupom (80 × 130 mm)
+PAGE_W_MM = 80
+PAGE_H_MM = 130
+PAGE_W_PT = PAGE_W_MM * mm
+PAGE_H_PT = PAGE_H_MM * mm
 
-# -------------------------------------------------------------------------
-# FONTES
-# -------------------------------------------------------------------------
-# Helvetica já está embutida no PDF, mas se quiser registrar outra:
-# pdfmetrics.registerFont(TTFont("OpenSans", "fonts/OpenSans-Regular.ttf"))
-FONTS = {
-    "normal": "Helvetica",
-    "bold": "Helvetica-Bold",
-}
+# Arquivos
+FILE_DATA   = Path("controle.json")
+FILE_COORDS = Path("coords_controle.json")
+FILE_BG     = Path("bg_controle.pdf")
+FILE_OUT    = Path("controle_80x130.pdf")
 
-# -------------------------------------------------------------------------
-# UTILITÁRIOS
-# -------------------------------------------------------------------------
-def mm2pt(value_mm: float) -> float:
-    """Converte milímetros para pontos."""
-    return value_mm * mm
+# --------------------------------------------------
 
-def load_json(path: str) -> dict:
-    try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        logging.error(f"Não consegui ler JSON em {path}: {e}")
-        raise SystemExit(1)
-
-# -------------------------------------------------------------------------
-# OVERLAY E MERGE
-# -------------------------------------------------------------------------
-def make_overlay(data: dict, coords: dict, page_w: float, page_h: float, font_sz: int) -> BytesIO:
-    """
-    Cria um PDF em memória com:
-      1) retângulos brancos (se coords[field]["mask"] for True)
-      2) texto nos coords[field] (em mm a partir do canto inferior esquerdo)
-    """
+def gerar_overlay(dados: dict, coords: dict) -> BytesIO:
+    """Cria PDF em memória contendo apenas o texto vetorial."""
     buf = BytesIO()
-    c = canvas.Canvas(buf, pagesize=(mm2pt(page_w), mm2pt(page_h)))
-    c.setFillColorRGB(1, 1, 1)  # branco
+    c = canvas.Canvas(buf, pagesize=(PAGE_W_PT, PAGE_H_PT))
 
-    # primeiro, máscara (se existir campo "mask" no coords)
-    for key, val in coords.items():
-        if val.get("mask"):  # coords[key] = {"pos":[x,y], "mask": [w,h]}
-            x_mm, y_mm = val["pos"]
-            w_mm, h_mm = val["mask"]
-            c.rect(mm2pt(x_mm), mm2pt(y_mm), mm2pt(w_mm), mm2pt(h_mm), fill=1, stroke=0)
+    for chave, meta in coords.items():
+        texto   = meta.get("texto", "")
+        fonte   = meta.get("font", "Helvetica")
+        tamanho = meta.get("pt", 8)
+        align   = meta.get("align", "left")
+        x_mm, y_top_mm = meta["pos"]
+        y_mm = PAGE_H_MM - y_top_mm  # GIMP → ReportLab
 
-    # segundo, texto
-    for key, val in coords.items():
-        if key not in data:
+        # ---- substituição dinâmica ----------------------------------
+        if chave.endswith("_valor"):
+            campo = chave.replace("_valor", "")
+            texto = dados.get(campo, texto)
+        elif chave.endswith("_valor_1"):
+            campo = chave.replace("_valor_1", "")
+            texto = dados.get(campo, texto)
+        elif chave.endswith("_valor_2"):
+            campo = chave.replace("_valor_2", "_2")
+            texto = dados.get(campo, texto)
+
+        if not texto.strip():
             continue
-        text = str(data[key])
-        x_mm, y_mm = val["pos"]
-        c.setFont(FONTS.get("bold"), font_sz)
-        c.drawString(mm2pt(x_mm), mm2pt(y_mm), text)
+
+        c.setFont(fonte, tamanho)
+        if align == "center":
+            c.drawCentredString(PAGE_W_PT / 2, y_mm * mm, texto)
+        else:
+            c.drawString(x_mm * mm, y_mm * mm, texto)
 
     c.showPage()
     c.save()
     buf.seek(0)
     return buf
 
-def merge_pdfs(template_pdf: str, overlay_buf: BytesIO, out_pdf: str):
-    """Mescla overlay_buf (1 página) sobre template_pdf."""
-    reader_bg = PdfReader(template_pdf)
-    reader_ov = PdfReader(overlay_buf)
-    writer = PdfWriter()
+# --------------------------------------------------
 
-    page_bg = reader_bg.pages[0]
-    page_ov = reader_ov.pages[0]
+def aplicar_fundo(overlay: BytesIO, fundo_pdf: Path, destino_pdf: Path):
+    """Mescla overlay ao fundo e salva no destino."""
+    fundo   = PdfReader(str(fundo_pdf))
+    sobre   = PdfReader(overlay)
+    writer  = PdfWriter()
 
-    page_bg.merge_page(page_ov)
-    writer.add_page(page_bg)
+    pagina = fundo.pages[0]
+    pagina.merge_page(sobre.pages[0])
+    writer.add_page(pagina)
 
-    with open(out_pdf, "wb") as f:
+    with destino_pdf.open("wb") as f:
         writer.write(f)
 
-# -------------------------------------------------------------------------
-# FLUXO PRINCIPAL
-# -------------------------------------------------------------------------
-def main():
-    p = argparse.ArgumentParser(description="Gera PDF de bilhete/controle.")
-    p.add_argument("--template", required=True, help="PDF de fundo (template)")
-    p.add_argument("--data", required=True, help="JSON com valores dos campos")
-    p.add_argument("--coords", required=True, help="JSON com coords e máscara")
-    p.add_argument("--out", required=True, help="Arquivo PDF de saída")
-    p.add_argument("--page-w", type=float, required=True, help="largura mm")
-    p.add_argument("--page-h", type=float, required=True, help="altura mm")
-    p.add_argument("--font-size", type=int, default=9, help="tamanho da fonte (pt)")
-    args = p.parse_args()
-
-    logging.info(f"Lendo dados: {args.data}")
-    data = load_json(args.data)
-
-    logging.info(f"Lendo coords: {args.coords}")
-    coords = load_json(args.coords)
-
-    logging.info("Construindo overlay...")
-    overlay = make_overlay(data, coords, args.page_w, args.page_h, args.font_size)
-
-    logging.info(f"Misturando sobre {args.template} → {args.out}")
-    merge_pdfs(args.template, overlay, args.out)
-
-    logging.info("Concluído.")
+# --------------------------------------------------
 
 if __name__ == "__main__":
-    main()
+    # 1) Ler JSONs
+    data   = json.loads(FILE_DATA.read_text(encoding="utf-8"))
+    layout = json.loads(FILE_COORDS.read_text(encoding="utf-8"))
+
+    # 2) Overlay de texto
+    overlay_stream = gerar_overlay(data, layout)
+
+    # 3) Fundo + texto
+    aplicar_fundo(overlay_stream, FILE_BG, FILE_OUT)
+
+    print(f"✅ Bilhete gerado: {FILE_OUT}")
