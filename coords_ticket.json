@@ -1,50 +1,41 @@
 {
-  "bpe_numero":       {"texto":"BP-e nº ",            "font":"Helvetica-Bold","pt":24,"pos":[30,60],  "align":"left"},
-  "bpe_numero_valor": {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[150,60],  "align":"left"},
-  "bpe_serie_label":  {"texto":" Série ",             "font":"Helvetica-Bold","pt":24,"pos":[430,60], "align":"left"},
-  "bpe_serie_valor":  {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[520,60], "align":"left"},
+  "bpe_numero":       {"texto":"BP-e nº ",     "font":"Helvetica-Bold","pt":24,"pos":[84,50],   "align":"left"},
+  "bpe_numero_valor": {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[336,40],  "align":"left"},
 
-  "venda_label":      {"texto":"Venda: ",             "font":"Helvetica",     "pt":24,"pos":[300,190],"align":"center"},
-  "venda_valor":      {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[300,190],"align":"center"},
+  "bpe_serie_label":  {"texto":" Série ",      "font":"Helvetica-Bold","pt":24,"pos":[631,29],  "align":"left"},
+  "bpe_serie_valor":  {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[700,29],  "align":"left"},
 
-  "origem_label":     {"texto":"ORIGEM: ",            "font":"Helvetica",     "pt":24,"pos":[80,660], "align":"left"},
-  "origem_valor":     {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[260,660],"align":"left"},
-  "destino_label":    {"texto":"DESTINO: ",           "font":"Helvetica",     "pt":24,"pos":[80,700], "align":"left"},
-  "destino_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[260,700],"align":"left"},
+  "venda_label":      {"texto":"Venda: ",      "font":"Helvetica",     "pt":24,"pos":[311,274], "align":"left"},
+  "venda_valor":      {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[455,274], "align":"left"},
 
-  "data_label":       {"texto":"Data: ",              "font":"Helvetica",     "pt":24,"pos":[110,740],"align":"left"},
-  "data_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,740],"align":"left"},
-  "horario_label":    {"texto":" | ",                "font":"Helvetica",     "pt":24,"pos":[400,740],"align":"left"},
-  "horario_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[440,740],"align":"left"},
+  "origem_label":     {"texto":"ORIGEM: ",     "font":"Helvetica",     "pt":24,"pos":[306,1052],"align":"left"},
+  "origem_valor":     {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[460,600],"align":"left"},
 
-  "poltrona_label":   {"texto":"(Poltrona: ",         "font":"Helvetica",     "pt":24,"pos":[80,780], "align":"left"},
-  "poltrona_valor":   {"texto":"","font":"Helvetica-Bold","pt":32,"pos":[280,780],"align":"left"},
-  "plataforma_label": {"texto":"Plataforma: ",        "font":"Helvetica",     "pt":24,"pos":[380,780],"align":"left"},
-  "plataforma_valor": {"texto":"","font":"Helvetica",     "pt":28,"pos":[560,780],"align":"left"},
+  "destino_label":    {"texto":"DESTINO: ",    "font":"Helvetica",     "pt":24,"pos":[237,1103],"align":"left"},
+  "destino_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[403,1104],"align":"left"},
 
-  "prefixo_label":    {"texto":"Prefixo: ",           "font":"Helvetica",     "pt":24,"pos":[80,820], "align":"left"},
-  "prefixo_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,820],"align":"left"},
-  "linha_label":      {"texto":"Linha ",              "font":"Helvetica",     "pt":24,"pos":[380,820],"align":"left"},
-  "linha_valor_1":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,860],"align":"left"},
-  "linha_valor_2":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,900],"align":"left"},
+  "data_label":       {"texto":"Data: ",       "font":"Helvetica",     "pt":24,"pos":[268,1153],"align":"left"},
+  "data_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[355,1153],"align":"left"},
+  "horario_label":    {"texto":"|",            "font":"Helvetica",     "pt":24,"pos":[533,1153],"align":"left"},
+  "horario_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[549,1154],"align":"left"},
 
-  "tipo_label":       {"texto":"Tipo: ",              "font":"Helvetica",     "pt":24,"pos":[110,940],"align":"left"},
-  "tipo_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,940],"align":"left"},
+  "poltrona_label":   {"texto":"(Poltrona: ",  "font":"Helvetica",     "pt":24,"pos":[252,1211],"align":"left"},
+  "poltrona_valor":   {"texto":"","font":"Helvetica-Bold","pt":32,"pos":[407,1207],"align":"left"},
 
-  "tarifa_valor":        {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1130],"align":"right"},
-  "taxa_embarque_valor": {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1170],"align":"right"},
-  "pedagio_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1210],"align":"right"},
-  "valor_total_valor":   {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1250],"align":"right"},
-  "desconto_valor":      {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1290],"align":"right"},
-  "valor_pagar_valor":   {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1330],"align":"right"},
+  "plataforma_label": {"texto":"Plataforma: ", "font":"Helvetica",     "pt":24,"pos":[462,1211],"align":"left"},
+  "plataforma_valor": {"texto":"","font":"Helvetica",     "pt":28,"pos":[639,1206],"align":"left"},
 
-  "forma_pag_valor":     {"texto":"","font":"Helvetica",     "pt":28,"pos":[100,1400],"align":"left"},
-  "valor_pag_valor":     {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[560,1400],"align":"right"},
-  "troco_valor":         {"texto":"","font":"Helvetica",     "pt":28,"pos":[560,1440],"align":"right"},
+  "prefixo_label":    {"texto":"Prefixo: ",    "font":"Helvetica",     "pt":24,"pos":[83,1265], "align":"left"},
+  "prefixo_valor":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[203,1265],"align":"left"},
 
-  "tipo_desconto_valor": {"texto":"","font":"Helvetica",     "pt":28,"pos":[300,1500],"align":"center"},
+  "linha_label":      {"texto":"Linha ",       "font":"Helvetica",     "pt":24,"pos":[363,1265],"align":"left"},
+  "linha_valor_1":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[220,1285],"align":"left"},
+  "linha_valor_2":    {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[416,1304],"align":"left"},
 
-  "passageiro_label":   {"texto":"PASSAGEIRO: ",       "font":"Helvetica-Bold","pt":40,"pos":[300,1580],"align":"center"},
+  "tipo_label":       {"texto":"Tipo: ",       "font":"Helvetica",     "pt":24,"pos":[330,1365],"align":"left"},
+  "tipo_valor":       {"texto":"","font":"Helvetica-Bold","pt":28,"pos":[425,1364],"align":"left"},
+
+  "passageiro_label":   {"texto":"PASSAGEIRO: ",         "font":"Helvetica-Bold","pt":40,"pos":[300,1580],"align":"center"},
   "passageiro_valor_1": {"texto":"","font":"Helvetica-Bold","pt":40,"pos":[300,1580],"align":"center"},
   "passageiro_valor_2": {"texto":"","font":"Helvetica-Bold","pt":36,"pos":[300,1630],"align":"center"}
 }
