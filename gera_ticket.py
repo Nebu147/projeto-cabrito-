@@ -1,87 +1,89 @@
-#!/usr/bin/env python3
-import io
+
 import json
 import argparse
+from pathlib import Path
 from reportlab.pdfgen import canvas
-from reportlab.pdfbase.pdfmetrics import stringWidth
 from PyPDF2 import PdfReader, PdfWriter
 
-def generate_ticket(bg_pdf_path, coords_path, output_pdf_path):
-    # 1) Leia o PDF de fundo e obtenha dimensões
-    reader = PdfReader(bg_pdf_path)
-    page = reader.pages[0]
-    media = page.mediabox
-    page_width = float(media.width)
-    page_height = float(media.height)
+def gerar_ticket(bg_path, coords_path, out_path, invert_y=False, debug=False):
+    bg_pdf = Path(bg_path)
+    coords_file = Path(coords_path)
+    out_pdf = Path(out_path)
 
-    # 2) Crie um canvas em memória do mesmo tamanho
-    packet = io.BytesIO()
-    c = canvas.Canvas(packet, pagesize=(page_width, page_height))
-
-    # 3) Carregue as coordenadas
-    with open(coords_path, 'r', encoding='utf-8') as f:
+    # Ler coordenadas
+    with open(coords_file, "r", encoding="utf-8") as f:
         coords = json.load(f)
 
-    # 4) Desenhe cada campo como TextField ajustado
-    padding_x, padding_y = 6, 4
-    form = c.acroForm
-    for name, meta in coords.items():
-        texto = meta['texto']
-        font = meta.get('font', 'Helvetica')
-        pt   = meta.get('pt',    12)
-        align= meta.get('align','left')
-        x_px, y_px = meta.get('pos',[0,0])
+    # Ler dimensões do fundo
+    bg_reader = PdfReader(str(bg_pdf))
+    bg_page = bg_reader.pages[0]
+    bg_width = float(bg_page.mediabox.width)
+    bg_height = float(bg_page.mediabox.height)
 
-        # Calcule tamanho da caixa
-        text_w = stringWidth(texto, font, pt)
-        w = text_w + padding_x
-        h = pt + padding_y
+    # Pegar dimensões de referência do JSON
+    ref_width = coords.get("_ref_width", bg_width)
+    ref_height = coords.get("_ref_height", bg_height)
 
-        # Ajuste X conforme alinhamento
-        if align == 'right':
-            x_pt = x_px - w
-        elif align == 'center':
-            x_pt = x_px - (w / 2)
-        else:  # left
-            x_pt = x_px
+    # Calcular escala
+    scale_x = bg_width / ref_width
+    scale_y = bg_height / ref_height
+    print(f"(bg: {bg_width:.2f}x{bg_height:.2f} pt | ref: {ref_width:.2f}x{ref_height:.2f} pt | sx={scale_x:.4f}, sy={scale_y:.4f})")
 
-        # Inverta Y e considere a altura da caixa
-        y_pt = page_height - y_px - h
+    # Criar overlay
+    overlay_path = "overlay_temp.pdf"
+    c = canvas.Canvas(overlay_path, pagesize=(bg_width, bg_height))
 
-        # Crie o campo de formulário (texfield)
-        form.textfield(
-            name=name,
-            tooltip=name,
-            x=x_pt, y=y_pt,
-            width=w, height=h,
-            borderStyle='underlined',
-            forceBorder=True,
-            fontName=font,
-            fontSize=pt,
-            fieldFlags=meta.get('fieldFlags',0)
-        )
+    for campo, props in coords.items():
+        if campo.startswith("_"):  # Ignorar metadados
+            continue
 
-    # 5) Finalize o canvas e crie o overlay
+        texto = props["texto"]
+        font = props.get("font", "Helvetica")
+        pt = props.get("pt", 12)
+        x, y = props["pos"]
+        align = props.get("align", "left")
+
+        # Aplicar escala
+        x_scaled = x * scale_x
+        y_scaled = y * scale_y
+
+        # Inverter Y se necessário
+        if invert_y:
+            y_scaled = bg_height - y_scaled
+
+        c.setFont(font, pt)
+        if debug:
+            c.setStrokeColorRGB(1, 0, 0)
+            c.rect(x_scaled - 1, y_scaled - 1, 100, 12, stroke=1, fill=0)
+
+        if align == "center":
+            c.drawCentredString(x_scaled, y_scaled, texto)
+        elif align == "right":
+            c.drawRightString(x_scaled, y_scaled, texto)
+        else:
+            c.drawString(x_scaled, y_scaled, texto)
+
     c.save()
-    packet.seek(0)
-    overlay_pdf = PdfReader(packet)
-    overlay_page = overlay_pdf.pages[0]
 
-    # 6) Mescle overlay + página de fundo
-    page.merge_page(overlay_page)
+    # Mesclar overlay com fundo
+    overlay_reader = PdfReader(overlay_path)
     writer = PdfWriter()
+    page = bg_reader.pages[0]
+    page.merge_page(overlay_reader.pages[0])
     writer.add_page(page)
 
-    # 7) Salve no arquivo de saída
-    with open(output_pdf_path, 'wb') as out_f:
-        writer.write(out_f)
+    with open(out_pdf, "wb") as f:
+        writer.write(f)
 
-    print(f"✅ Bilhete gerado: {output_pdf_path}")
+    print(f"✅ Ticket gerado: {out_pdf}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Gera bilhete com campos editáveis sobre PDF de fundo")
-    parser.add_argument("--bg",     default="bg_ticket_full.pdf", help="PDF de fundo (gabarito)")
-    parser.add_argument("--coords", default="coords_ticket.json", help="JSON de coordenadas")
-    parser.add_argument("--out",    default="ticket_final.pdf", help="Caminho de saída do PDF gerado")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bg", required=True, help="PDF de fundo")
+    parser.add_argument("--coords", required=True, help="JSON com coordenadas")
+    parser.add_argument("--out", required=True, help="Arquivo PDF de saída")
+    parser.add_argument("--invert-y", action="store_true", help="Inverter eixo Y")
+    parser.add_argument("--debug", action="store_true", help="Desenhar caixas de debug")
     args = parser.parse_args()
-    generate_ticket(args.bg, args.coords, args.out)
+
+    gerar_ticket(args.bg, args.coords, args.out, invert_y=args.invert_y, debug=args.debug)
