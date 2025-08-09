@@ -1,31 +1,514 @@
 {
-  "origem_label":  {"texto":"ORIGEM: ",  "font":"Helvetica","pt":8,  "pos":[21.0,45.0], "align":"left"},
-  "origem_valor":  {"texto":"SINOP (MT)","font":"Helvetica-Bold","pt":8,  "pos":[33.5,55.0], "align":"left"},
-
-  "destino_label": {"texto":"DESTINO: ", "font":"Helvetica","pt":8,  "pos":[21.0,59.0], "align":"left"},
-  "destino_valor": {"texto":"NOVA MUTUM (MT)","font":"Helvetica-Bold","pt":8,  "pos":[33.0,59.0], "align":"left"},
-
-  "data_label":    {"texto":"Data: ",    "font":"Helvetica","pt":8,  "pos":[21.0,63.0], "align":"left"},
-  "data_valor":    {"texto":"13/05/2025 ","font":"Helvetica-Bold","pt":8,  "pos":[29.0,63.0], "align":"left"},
-  "horario_label": {"texto":" | ",       "font":"Helvetica","pt":8,  "pos":[51.0,63.0], "align":"left"},
-  "horario_valor": {"texto":"16:27:00 ","font":"Helvetica-Bold","pt":8,  "pos":[60.0,63.0], "align":"left"},
-
-  "poltrona_label": {"texto":"(Poltrona: ","font":"Helvetica","pt":8, "pos":[21.0,67.0], "align":"left"},
-  "poltrona_valor": {"texto":"16",      "font":"Helvetica-Bold","pt":10,"pos":[34.5,67.0], "align":"left"},
-  "plataforma_label": {"texto":"Plataforma: ","font":"Helvetica","pt":8,"pos":[44.0,67.0], "align":"left"},
-  "plataforma_valor": {"texto":"05)",   "font":"Helvetica","pt":10,  "pos":[47.0,67.0], "align":"left"},
-
-  "prefixo_label": {"texto":"Prefixo: ","font":"Helvetica","pt":8,  "pos":[21.0,71.0], "align":"left"},
-  "prefixo_valor": {"texto":"28410100","font":"Helvetica-Bold","pt":8,  "pos":[30.5,71.0], "align":"left"},
-
-  "linha_label":   {"texto":"Linha ","font":"Helvetica","pt":8,      "pos":[46.0,71.0], "align":"left"},
-  "linha_valor_1": {"texto":"CUIABÁ × GUARANTÃ DO ","font":"Helvetica-Bold","pt":8,"pos":[33.0,73.5],"align":"left"},
-  "linha_valor_2": {"texto":" NORTE","font":"Helvetica-Bold","pt":8,   "pos":[33.0,75.0],"align":"left"},
-
-  "tipo_label": {"texto":"Tipo: ", "font":"Helvetica","pt":8,         "pos":[21.0,80.0], "align":"left"},
-  "tipo_valor": {"texto":"EXECUTIVO","font":"Helvetica-Bold","pt":8,     "pos":[33.0,80.0], "align":"left"},
-
-  "passageiro_label":   {"texto":"PASSAGEIRO:","font":"Helvetica-Bold","pt":10,"pos":[40.0,88.0],"align":"center"},
-  "passageiro_valor_1": {"texto":"00647397242 - ELIAS ","font":"Helvetica-Bold","pt":10,"pos":[40.0,92.0],"align":"center"},
-  "passageiro_valor_2": {"texto":"RIBEIRO DE SOUZA","font":"Helvetica-Bold","pt":10,"pos":[40.0,93.5],"align":"center"}
+  "_ref_width": 603.0,
+  "_ref_height": 2048.0,
+  "bpe_numero": {
+    "texto": "BP-e nº",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      51.8,
+      17.56
+    ],
+    "align": "left"
+  },
+  "bpe_numero_valor": {
+    "texto": "3288916",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      212.85,
+      15.81
+    ],
+    "align": "left"
+  },
+  "bpe_serie_label": {
+    "texto": "Série",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      396.88,
+      18.43
+    ],
+    "align": "left"
+  },
+  "bpe_serie_valor": {
+    "texto": "1",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      532.05,
+      19.41
+    ],
+    "align": "left"
+  },
+  "venda_label": {
+    "texto": "Venda",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      198.92,
+      175.86
+    ],
+    "align": "left"
+  },
+  "venda_valor": {
+    "texto": "13499843",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      287.37,
+      176.63
+    ],
+    "align": "left"
+  },
+  "origem_label": {
+    "texto": "ORIGEM",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      193.03,
+      671.03
+    ],
+    "align": "left"
+  },
+  "origem_valor": {
+    "texto": "SINOP (MT)",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      291.22,
+      671.49
+    ],
+    "align": "left"
+  },
+  "destino_label": {
+    "texto": "DESTINO",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      150.15,
+      703.01
+    ],
+    "align": "left"
+  },
+  "destino_valor": {
+    "texto": "NOVA MUTUM (MT)",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      258.04,
+      704.32
+    ],
+    "align": "left"
+  },
+  "data_label": {
+    "texto": "Data",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      169.65,
+      733.35
+    ],
+    "align": "left"
+  },
+  "data_valor": {
+    "texto": "13/05/2025",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      224.91,
+      733.04
+    ],
+    "align": "left"
+  },
+  "horario_valor": {
+    "texto": "16:27:00",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      349.46,
+      734.7
+    ],
+    "align": "left"
+  },
+  "poltrona_label": {
+    "texto": "(Poltrona:",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      155.81,
+      773.67
+    ],
+    "align": "left"
+  },
+  "poltrona_valor": {
+    "texto": "16",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      257.68,
+      766.97
+    ],
+    "align": "left"
+  },
+  "plataforma_label": {
+    "texto": "Plataforma:",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      293.28,
+      773.29
+    ],
+    "align": "left"
+  },
+  "plataforma_valor": {
+    "texto": "05",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      440.0,
+      770.0
+    ],
+    "align": "left"
+  },
+  "prefixo_label": {
+    "texto": "Prefixo",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      51.92,
+      806.53
+    ],
+    "align": "left"
+  },
+  "prefixo_valor": {
+    "texto": "28410100",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      128.75,
+      807.3
+    ],
+    "align": "left"
+  },
+  "linha_label": {
+    "texto": "Linha",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      229.06,
+      807.46
+    ],
+    "align": "left"
+  },
+  "linha_valor_1": {
+    "texto": "CUIABA × GUARANTÃ DO",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      288.05,
+      807.36
+    ],
+    "align": "left"
+  },
+  "linha_valor_2": {
+    "texto": "NORTE",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      265.58,
+      838.62
+    ],
+    "align": "left"
+  },
+  "tipo_label": {
+    "texto": "Tipo",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      209.5,
+      869.93
+    ],
+    "align": "left"
+  },
+  "tipo_valor": {
+    "texto": "EXECUTIVO",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      270.26,
+      871.67
+    ],
+    "align": "left"
+  },
+  "tarifa_label": {
+    "texto": "Tarifa",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      37.39,
+      908.89
+    ],
+    "align": "left"
+  },
+  "tarifa_valor": {
+    "texto": "65,52",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      478.7,
+      909.77
+    ],
+    "align": "right"
+  },
+  "taxa_embarque_label": {
+    "texto": "Taxa Embarque",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      36.95,
+      934.09
+    ],
+    "align": "left"
+  },
+  "taxa_embarque_valor": {
+    "texto": "7,00",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      490.48,
+      934.53
+    ],
+    "align": "right"
+  },
+  "pedagio_label": {
+    "texto": "Pedágio",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      38.26,
+      961.26
+    ],
+    "align": "left"
+  },
+  "pedagio_valor": {
+    "texto": "0,00",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      492.44,
+      961.75
+    ],
+    "align": "right"
+  },
+  "valor_total_label": {
+    "texto": "Valor Total R$",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      36.08,
+      986.24
+    ],
+    "align": "left"
+  },
+  "valor_total_valor": {
+    "texto": "72,52",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      481.28,
+      986.36
+    ],
+    "align": "right"
+  },
+  "desconto_label": {
+    "texto": "Desconto R$",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      40.82,
+      1012.13
+    ],
+    "align": "left"
+  },
+  "desconto_valor": {
+    "texto": "0,00",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      492.12,
+      1012.51
+    ],
+    "align": "right"
+  },
+  "valor_a_pagar_label": {
+    "texto": "Valor a Pagar R$",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      37.36,
+      1036.36
+    ],
+    "align": "left"
+  },
+  "valor_a_pagar_valor": {
+    "texto": "72,52",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      479.36,
+      1034.43
+    ],
+    "align": "right"
+  },
+  "forma_pag_label": {
+    "texto": "FORMA PAGAMENTO",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      40.82,
+      1081.7
+    ],
+    "align": "left"
+  },
+  "valor_pag_label": {
+    "texto": "VALOR PAGO R$",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      392.01,
+      1079.78
+    ],
+    "align": "left"
+  },
+  "forma_pag_valor": {
+    "texto": "Cartão Crédito",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      38.13,
+      1108.28
+    ],
+    "align": "left"
+  },
+  "valor_pag_valor": {
+    "texto": "72,52",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      480.54,
+      1106.74
+    ],
+    "align": "right"
+  },
+  "troco_label": {
+    "texto": "Troco",
+    "font": "Helvetica",
+    "pt": 22,
+    "pos": [
+      36.21,
+      1132.51
+    ],
+    "align": "left"
+  },
+  "troco_valor": {
+    "texto": "0,00",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      523.29,
+      1132.51
+    ],
+    "align": "right"
+  },
+  "passageiro_label": {
+    "texto": "PASSAGEIRO:",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      130.0,
+      1296.0
+    ],
+    "align": "left"
+  },
+  "passageiro_valor_1": {
+    "texto": "00647397242",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      260.0,
+      1310.0
+    ],
+    "align": "left"
+  },
+  "passageiro_valor_2": {
+    "texto": "ELIAS DE",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      428.47,
+      1297.23
+    ],
+    "align": "left"
+  },
+  "passageiro_valor_3": {
+    "texto": "SOUZA RIBEIRO",
+    "font": "Helvetica-Bold",
+    "pt": 22,
+    "pos": [
+      196.46,
+      1336.87
+    ],
+    "align": "left"
+  },
+  "bpe_numero_pequeno": {
+    "texto": "BP-e3288916",
+    "font": "Helvetica",
+    "pt": 20,
+    "pos": [
+      104.4,
+      1397.73
+    ],
+    "align": "left"
+  },
+  "bpe_serie_pequeno": {
+    "texto": "Série 1",
+    "font": "Helvetica",
+    "pt": 20,
+    "pos": [
+      257.28,
+      1398.3
+    ],
+    "align": "left"
+  },
+  "geracao_horario": {
+    "texto": "16:27:00",
+    "font": "Helvetica",
+    "pt": 20,
+    "pos": [
+      328.71,
+      1398.06
+    ],
+    "align": "left"
+  },
+  "autorizacao_label": {
+    "texto": "Data Autorização",
+    "font": "Helvetica",
+    "pt": 20,
+    "pos": [
+      123.41,
+      1485.06
+    ],
+    "align": "left"
+  },
+  "autorizacao_valor": {
+    "texto": "13/05/2025 14:31:59",
+    "font": "Helvetica-Bold",
+    "pt": 20,
+    "pos": [
+      312.48,
+      1483.26
+    ],
+    "align": "left"
+  }
 }
