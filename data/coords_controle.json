@@ -1,31 +1,34 @@
 {
-  "origem_label":  {"texto":"ORIGEM: ",  "font":"Helvetica","pt":8,  "pos":[21.0,55.0], "align":"left"},
-  "origem_valor":  {"texto":"SINOP (MT)","font":"Helvetica-Bold","pt":8,  "pos":[33.5,55.0], "align":"left"},
+  "_ref_width": 80,
+  "_ref_height": 130,
+
+  "origem_label":  {"texto":"ORIGEM: ",  "font":"Helvetica","pt":8,  "pos":[26.00,55.00], "align":"left"},
+  "origem_valor":  {"texto":"SINOP (MT)","font":"Helvetica-Bold","pt":8,  "pos":[39.00,55.00], "align":"left"},
 
   "destino_label": {"texto":"DESTINO: ", "font":"Helvetica","pt":8,  "pos":[21.0,59.0], "align":"left"},
-  "destino_valor": {"texto":"NOVA MUTUM (MT)","font":"Helvetica-Bold","pt":8,  "pos":[33.0,59.0], "align":"left"},
+  "destino_valor": {"texto":"NOVA MUTUM (MT)","font":"Helvetica-Bold","pt":8,  "pos":[35.0,59.0], "align":"left"},
 
-  "data_label":    {"texto":"Data: ",    "font":"Helvetica","pt":8,  "pos":[21.0,63.0], "align":"left"},
-  "data_valor":    {"texto":"13/05/2025 ","font":"Helvetica-Bold","pt":8,  "pos":[29.0,63.0], "align":"left"},
-  "horario_label": {"texto":" | ",       "font":"Helvetica","pt":8,  "pos":[51.0,63.0], "align":"left"},
-  "horario_valor": {"texto":"16:27:00 ","font":"Helvetica-Bold","pt":8,  "pos":[60.0,63.0], "align":"left"},
+  "data_label":    {"texto":"Data: ",    "font":"Helvetica","pt":8,  "pos":[23,63.0], "align":"left"},
+  "data_valor":    {"texto":"13/05/2025 ","font":"Helvetica-Bold","pt":8,  "pos":[31,63.0], "align":"left"},
+  "horario_label": {"texto":" | ",       "font":"Helvetica","pt":8,  "pos":[45,63.0], "align":"left"},
+  "horario_valor": {"texto":"16:27:00 ","font":"Helvetica-Bold","pt":8,  "pos":[47,63.0], "align":"left"},
 
-  "poltrona_label": {"texto":"(Poltrona: ","font":"Helvetica","pt":8, "pos":[21.0,67.0], "align":"left"},
-  "poltrona_valor": {"texto":"16",      "font":"Helvetica-Bold","pt":10,"pos":[34.5,67.0], "align":"left"},
-  "plataforma_label": {"texto":"Plataforma: ","font":"Helvetica","pt":8,"pos":[44.0,67.0], "align":"left"},
-  "plataforma_valor": {"texto":"05)",   "font":"Helvetica","pt":10,  "pos":[47.0,67.0], "align":"left"},
+  "poltrona_label":   {"texto":"(Poltrona: ","font":"Helvetica","pt":8, "pos":[22,67.0], "align":"left"},
+  "poltrona_valor":   {"texto":"16",      "font":"Helvetica-Bold","pt":9,"pos":[35.7,67.0], "align":"left"},
+  "plataforma_label": {"texto":"Plataforma: ","font":"Helvetica","pt":8,"pos":[40.0,67.0], "align":"left"},
+  "plataforma_valor": {"texto":"05)",     "font":"Helvetica-Bold","pt":9,  "pos":[55,67.0], "align":"left"},
 
-  "prefixo_label": {"texto":"Prefixo: ","font":"Helvetica","pt":8,  "pos":[21.0,71.0], "align":"left"},
-  "prefixo_valor": {"texto":"28410100","font":"Helvetica-Bold","pt":8,  "pos":[30.5,71.0], "align":"left"},
+  "prefixo_label": {"texto":"Prefixo: ","font":"Helvetica","pt":8,  "pos":[7,71.0], "align":"left"},
+  "prefixo_valor": {"texto":"28410100","font":"Helvetica-Bold","pt":8,  "pos":[17,71.0], "align":"left"},
 
-  "linha_label":   {"texto":"Linha ","font":"Helvetica","pt":8,      "pos":[46.0,71.0], "align":"left"},
-  "linha_valor_1": {"texto":"CUIABÁ × GUARANTÃ ","font":"Helvetica-Bold","pt":8,"pos":[33.0,73.5],"align":"left"},
-  "linha_valor_2": {"texto":" DONORTE","font":"Helvetica-Bold","pt":8,   "pos":[33.0,75.0],"align":"left"},
+  "linha_label":   {"texto":"Linha ","font":"Helvetica","pt":8,      "pos":[30,71.0], "align":"left"},
+  "linha_valor_1": {"texto":"CUIABÁ × GUARANTÃ DO ","font":"Helvetica-Bold","pt":8,"pos":[38,71.0],"align":"left"},
+  "linha_valor_2": {"texto":" NORTE","font":"Helvetica-Bold","pt":8,   "pos":[33.0,75],"align":"left"},
 
-  "tipo_label": {"texto":"Tipo: ", "font":"Helvetica","pt":8,         "pos":[21.0,80.0], "align":"left"},
+  "tipo_label": {"texto":"Tipo: ", "font":"Helvetica","pt":8,         "pos":[26,80.0], "align":"left"},
   "tipo_valor": {"texto":"EXECUTIVO","font":"Helvetica-Bold","pt":8,     "pos":[33.0,80.0], "align":"left"},
 
-  "passageiro_label":   {"texto":"PASSAGEIRO:","font":"Helvetica-Bold","pt":10,"pos":[40.0,88.0],"align":"center"},
-  "passageiro_valor_1": {"texto":"00647397242 - ELIAS ","font":"Helvetica-Bold","pt":10,"pos":[40.0,92.0],"align":"center"},
-  "passageiro_valor_2": {"texto":"RIBEIRO DE SOUZA","font":"Helvetica-Bold","pt":10,"pos":[40.0,93.5],"align":"center"}
+  "passageiro_label":   {"texto":"PASSAGEIRO:","font":"Helvetica-Bold","pt":9,"pos":[9,88.0],"align":""},
+  "passageiro_valor_1": {"texto":"00647397242 - ELIAS ","font":"Helvetica-Bold","pt":9,"pos":[31,88.0],"align":""},
+  "passageiro_valor_2": {"texto":"RIBEIRO DE SOUZA","font":"Helvetica-Bold","pt":9,"pos":[28,93.5],"align":""}
 }

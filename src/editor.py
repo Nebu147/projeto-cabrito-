@@ -322,7 +322,7 @@ def main():
     coords = Path(args.coords).expanduser().resolve()
     out_path = Path(args.out).expanduser().resolve() if args.out else (data_dir / "coords_editado.json").resolve()
 
-    print(f"[editor] Saída configurada para: {out_path}")
+    print(f"[OK] Saída configurada para: {out_path}")
 
     app = CoordEditor(bg, coords, out_path)
     app.mainloop()

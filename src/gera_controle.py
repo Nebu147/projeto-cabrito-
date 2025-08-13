@@ -1,182 +1,146 @@
-# src/gera_controle.py  —  CONTROLE 80x130 mm (sem baseline, centralização por grupos)
+# gera_controle.py  —  modo estrito (respeita 100% o coords_controle.json)
+
 from __future__ import annotations
-
 import json
-import re
 from argparse import ArgumentParser
-from io import BytesIO
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
 
-from PyPDF2 import PdfReader, PdfWriter
-from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
-print(">> usando src/gera_controle.py (build com KEY_MAP)")
+from PyPDF2 import PdfReader, PdfWriter
 
-# topo do arquivo (depois dos imports)
+# Tamanho fixo do CONTROLE
+PAGE_W_MM = 80
+PAGE_H_MM = 130
+PAGE_W_PT = PAGE_W_MM * mm
+PAGE_H_PT = PAGE_H_MM * mm
+
+# Mapeamento de chaves *_valor -> campo no controle.json
 KEY_MAP = {
-    "origem_valor":        ["origem_valor", "origem"],
-    "destino_valor":       ["destino_valor", "destino"],
-    "data_valor":          ["data_valor", "data"],
-    "horario_valor":       ["horario_valor", "hora", "horario"],
-    "poltrona_valor":      ["poltrona_valor", "poltrona"],
-    "plataforma_valor":    ["plataforma_valor", "plataforma"],
-    "prefixo_valor":       ["prefixo_valor", "prefixo"],
-    "linha_valor_1":       ["linha_valor_1", "linha1", "linha"],
-    "linha_valor_2":       ["linha_valor_2", "linha2"],
-    "tipo_valor":          ["tipo_valor", "tipo"],
-    "passageiro_valor_1":  ["passageiro_valor_1", "passageiro", "passageiro_nome"],
-    "passageiro_valor_2":  ["passageiro_valor_2", "passageiro_2", "sobrenome"],
+    "origem_valor":        ["origem"],
+    "destino_valor":       ["destino"],
+    "data_valor":          ["data"],
+    "horario_valor":       ["hora", "horario"],   # aceita "hora" ou "horario"
+    "poltrona_valor":      ["poltrona"],
+    "plataforma_valor":    ["plataforma"],
+    "prefixo_valor":       ["prefixo"],
+    "linha_valor_1":       ["linha1", "linha_1"],
+    "linha_valor_2":       ["linha2", "linha_2"],
+    "tipo_valor":          ["tipo"],
+    "passageiro_valor_1":  ["passageiro", "passageiro_nome"],
+    "passageiro_valor_2":  ["passageiro_2", "sobrenome"],
 }
 
-# -------- util --------
-def swidth(text: str, font: str, pt: float) -> float:
-    if font not in pdfmetrics.getRegisteredFontNames():
-        font = "Helvetica"
-    return pdfmetrics.stringWidth(text or "", font, pt)
+def var_for_key(name: str, dados: dict, default: str) -> str:
+    """Retorna o valor do controle.json correspondente a uma chave *_valor;
+       se não houver, devolve o texto default do coords."""
+    for cand in KEY_MAP.get(name, []):
+        if cand in dados and str(dados[cand]).strip():
+            return str(dados[cand])
+    return default
 
-def get_xy_mm(pos: Any) -> Tuple[float, float]:
-    if isinstance(pos, (list, tuple)) and len(pos) >= 2:
-        return float(pos[0]), float(pos[1])
-    if isinstance(pos, dict) and "x" in pos and "y" in pos:
-        return float(pos["x"]), float(pos["y"])
-    raise ValueError(f"pos inválido: {pos!r}")
+def draw_one(c: canvas.Canvas, meta: dict, invert_y: bool):
+    """Desenha um item do coords (texto literal, sem substituição)."""
+    texto = str(meta.get("texto", ""))
+    font  = meta.get("font", "Helvetica")
+    pt    = float(meta.get("pt", 8))
+    align = meta.get("align", "left").lower()
+    x_mm, y_mm = meta.get("pos", [0.0, 0.0])
 
-def base_key(name: str) -> str:
-    # remove _valor e _<n> do final
-    return re.sub(r"(?:_valor)?(?:_\d+)?$", "", name)
+    x = float(x_mm) * mm
+    y = float(y_mm) * mm
+    if invert_y:
+        y = PAGE_H_PT - y
 
-def resolve_text(name: str, meta: dict, dados: Dict[str, Any]) -> str:
-    """
-    Resolve o texto para um campo do coords:
-    - tenta chaves mapeadas em KEY_MAP para esse 'name';
-    - se não houver mapeamento, tenta a chave exata;
-    - por fim tenta a chave-base (sem _valor/_n);
-    - senão, fica com o texto do coords.
-    """
-    txt = str(meta.get("texto", ""))
+    c.setFont(font, pt)
+    if align == "center":
+        c.drawCentredString(PAGE_W_PT/2, y, texto)
+    elif align == "right":
+        c.drawRightString(x, y, texto)
+    else:
+        c.drawString(x, y, texto)
 
-    # 1) mapeamento explícito
-    for k in KEY_MAP.get(name, []):
-        if k in dados and str(dados[k]).strip():
-            return str(dados[k])
+def draw_value(c: canvas.Canvas, name: str, meta: dict, dados: dict, invert_y: bool):
+    """Desenha item *_valor substituindo pelo controle.json; todo o resto respeita o coords."""
+    texto_default = str(meta.get("texto", ""))
+    texto = var_for_key(name, dados, texto_default)
 
-    # 2) chave exata
-    if name in dados and str(dados[name]).strip():
-        return str(dados[name])
+    meta2 = dict(meta)
+    meta2["texto"] = texto
+    draw_one(c, meta2, invert_y)
 
-    # 3) chave-base (apenas para não numerados)
-    if not re.search(r"_\d+$", name):
-        kbase = re.sub(r"(?:_valor)?(?:_\d+)?$", "", name)
-        if kbase in dados and str(dados[kbase]).strip():
-            return str(dados[kbase])
+def gerar_overlay(dados: dict, coords: dict, invert_y: bool, proof: bool) -> Path:
+    tmp = Path("__overlay_tmp_controle.pdf")
+    c = canvas.Canvas(str(tmp), pagesize=(PAGE_W_PT, PAGE_H_PT))
 
-    # 4) fallback: texto do coords
-    return txt
-
-    return txt
-
-# -------- grupos centralizados (uma linha por grupo) --------
-GRUPOS: List[Tuple[str, ...]] = [
-    ("origem_label",  "origem_valor"),
-    ("destino_label", "destino_valor"),
-    ("data_label",    "data_valor", "horario_label", "horario_valor"),
-    ("poltrona_label","poltrona_valor","plataforma_label","plataforma_valor"),
-    ("prefixo_label", "prefixo_valor", "linha_label", "linha_valor_1"),  # SEM linha_valor_2
-    ("tipo_label",    "tipo_valor"),
-]
-
-def gerar_overlay_mm(
-    dados: Dict[str, Any],
-    coords: Dict[str, Any],
-    page_w_mm: float,
-    page_h_mm: float,
-    invert_y: bool,
-) -> BytesIO:
-    buf = BytesIO()
-    c = canvas.Canvas(buf, pagesize=(page_w_mm * mm, page_h_mm * mm))
-    usados = set()
-
-    # --- linhas centralizadas (grupos) ---
-    for grupo in GRUPOS:
-        y_top_mm = get_xy_mm(coords[grupo[0]]["pos"])[1]
-        y_mm = (page_h_mm - y_top_mm) if invert_y else y_top_mm
-
-        partes: List[str] = []
-        fontes: List[str] = []
-        pts: List[float] = []
-
-        for name in grupo:
-            meta = coords[name]
-            font = meta.get("font", "Helvetica")
-            pt = float(meta.get("pt", 8))
-            txt = resolve_text(name, meta, dados)
-            if name.endswith("_valor"):
-                font = "Helvetica-Bold"
-            partes.append(txt); fontes.append(font); pts.append(pt)
-            usados.add(name)
-
-        total_w = sum(swidth(t, f, p) for t, f, p in zip(partes, fontes, pts))
-        x_pt = ((page_w_mm * mm) - total_w) / 2.0
-        for t, f, p in zip(partes, fontes, pts):
-            try: c.setFont(f, p)
-            except Exception: c.setFont("Helvetica", p)
-            c.drawString(x_pt, y_mm * mm, t)
-            x_pt += swidth(t, f, p)
-
-    # --- demais campos (ex.: PASSAGEIRO, linha_valor_2 etc.) ---
     for name, meta in coords.items():
-        if name in usados or name.startswith("_"):
-            continue
-        font  = meta.get("font", "Helvetica")
-        pt    = float(meta.get("pt", 8))
-        align = (meta.get("align", "left") or "left").lower()
-        x_mm, y_top_mm = get_xy_mm(meta.get("pos", [0, 0]))
-        y_mm = (page_h_mm - y_top_mm) if invert_y else y_top_mm
-
-        txt = resolve_text(name, meta, dados)
-        if not txt.strip():
+        # Ignore metadados opcionais
+        if name.startswith("_"):
             continue
 
-        try: c.setFont(font, pt)
-        except Exception: c.setFont("Helvetica", pt)
-
-        if align == "center":
-            c.drawCentredString((page_w_mm * mm) / 2, y_mm * mm, txt)
-        elif align == "right":
-            c.drawRightString(x_mm * mm, y_mm * mm, txt)
+        # Substitui somente *_valor; demais são desenhados literalmente
+        if name.endswith("_valor") or name.endswith("_valor_1") or name.endswith("_valor_2"):
+            draw_value(c, name, meta, dados, invert_y)
         else:
-            c.drawString(x_mm * mm, y_mm * mm, txt)
+            draw_one(c, meta, invert_y)
 
-    c.showPage(); c.save(); buf.seek(0); return buf
+        if proof:
+            # caixinha simples para debug
+            try:
+                x_mm, y_mm = meta.get("pos", [0.0, 0.0])
+                pt = float(meta.get("pt", 8))
+                x = float(x_mm) * mm
+                y = float(y_mm) * mm
+                if invert_y:
+                    y = PAGE_H_PT - y
+                c.setLineWidth(0.3)
+                c.rect(x-1.5, y-1.5, 3, 3)  # âncora
+                c.setDash(2, 2)
+                c.rect(x-2, y-2, 60, pt+4)  # caixa ilustrativa
+                c.setDash()
+            except Exception:
+                pass
 
-def mesclar_overlay(bg_pdf: Path, overlay: BytesIO, out_pdf: Path):
-    r_bg = PdfReader(str(bg_pdf)); r_ov = PdfReader(overlay)
-    page = r_bg.pages[0]; page.merge_page(r_ov.pages[0])
-    w = PdfWriter(); w.add_page(page)
-    with out_pdf.open("wb") as f: w.write(f)
+    c.showPage()
+    c.save()
+    return tmp
+
+def mesclar(bg_pdf: Path, overlay_pdf: Path, out_pdf: Path):
+    r_bg = PdfReader(str(bg_pdf))
+    r_ov = PdfReader(str(overlay_pdf))
+    page = r_bg.pages[0]
+    page.merge_page(r_ov.pages[0])
+    w = PdfWriter()
+    w.add_page(page)
+    with out_pdf.open("wb") as f:
+        w.write(f)
 
 def main():
-    ap = ArgumentParser(description="CONTROLE 80x130 mm (sem baseline, centralização por grupos)")
-    ap.add_argument("--bg", required=True)
-    ap.add_argument("--coords", required=True)
-    ap.add_argument("--vars")
-    ap.add_argument("--out", default="controle_80x130.pdf")
-    ap.add_argument("--page-w-mm", type=float, default=80.0)
-    ap.add_argument("--page-h-mm", type=float, default=130.0)
-    ap.add_argument("--invert-y", action="store_true")
-    args = ap.parse_args()
+    p = ArgumentParser(description="Gera CONTROLE (80x130mm) respeitando 100% o coords_controle.json.")
+    p.add_argument("--bg", required=True, help="PDF de fundo (bg_controle.pdf)")
+    p.add_argument("--coords", required=True, help="JSON de coordenadas (coords_controle.json)")
+    p.add_argument("--vars", required=True, help="JSON de variáveis (controle.json)")
+    p.add_argument("--out", default="controle_final.pdf", help="PDF de saída")
+    p.add_argument("--invert-y", action="store_true", help="Se coords usa Y a partir do topo (recomendado)")
+    p.add_argument("--proof", action="store_true", help="Desenha âncoras/caixas de debug")
+    args = p.parse_args()
 
     bg = Path(args.bg)
-    coords = json.loads(Path(args.coords).read_text(encoding="utf-8"))
-    dados: Dict[str, Any] = {}
-    if args.vars and Path(args.vars).exists():
-        dados = json.loads(Path(args.vars).read_text(encoding="utf-8"))
+    coords_path = Path(args.coords)
+    vars_path = Path(args.vars)
+    out_path = Path(args.out)
 
-    overlay = gerar_overlay_mm(dados, coords, args.page_w_mm, args.page_h_mm, args.invert_y)
-    outp = Path(args.out); mesclar_overlay(bg, overlay, outp)
-    print(f"✅ Gerado: {outp}\n   Fundo:  {bg.name}\n   Página: {args.page_w_mm}×{args.page_h_mm} mm")
+    coords = json.loads(coords_path.read_text(encoding="utf-8"))
+    dados  = json.loads(vars_path.read_text(encoding="utf-8"))
+
+    tmp = gerar_overlay(dados, coords, args.invert_y, args.proof)
+    try:
+        mesclar(bg, tmp, out_path)
+    finally:
+        try: tmp.unlink()
+        except Exception: pass
+
+    print("Gerado:", out_path)
 
 if __name__ == "__main__":
     main()
