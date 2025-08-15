@@ -1,26 +1,44 @@
 {
   "bpe_numero": "3288916",
   "bpe_serie": "1",
-  "venda:": " : 13499843",
-  "origem": "SINOP (MT) ",
-  "destino": "COLIDER (MT) ",
+  "venda": "13499843",
+
+  "origem": "SINOP (MT)",
+  "destino": "COLIDER (MT)",
+
   "data": "11/08/2025",
-  "horario": "1717",
+  "horario": "17:17:00",
+
+  "data_autorizacao": "13/05/2025 14:31:59",
+  "autorizacao_valor": "13/05/2025 14:31:59",
+
   "poltrona": "03",
   "plataforma": "06",
   "prefixo": "28410100",
-  "linha": "ALTA FLORESTA x CUIABA",
+
+  "linha1": "CUIABÁ GUARANTÃ DO",
+  "linha2": "NORTE",
+
   "tipo": "EXECUTIVO",
-  "tarifa": "R$23,26",
-  "taxa_embarque": "10,00",
-  "pedagio": "0,00",
+
+  "tarifa": "R$ 23,26",
+  "taxa_embarque": "R$ 10,00",
+  "pedagio": "R$ 0,00",
+
   "valor_total": "33,26",
   "desconto": "0,00",
-  "valor_pagar": "RS33,26",
-  "forma_pag": "Dinheiro ",
-  "valor_pag": "33,26",
-  "troco": "0,00",
+  "valor_pagar": "33,26",
+
+  "forma_pag": "Dinheiro",
+  "valor_pag": "R$ 33,26",
+  "troco": "R$ 0,00",
+
   "tipo_desconto": "Tarifa Promocional",
-  "passageiro_cpf_nome": "05073364104 thiago ",
-  "passageiro_sobrenome": "Gramacho da Silva "
+
+  "passageiro_cpf_nome": "05073364104 - THIAGO",
+  "passageiro_sobrenome": "GRAMACHO DA SILVA",
+
+  "bpe_numero_pequeno": "BP-e nº 3288916",
+  "bpe_serie_pequeno": "Série 1",
+  "geracao_horario": "13/05/2025 14:31:59"
 }

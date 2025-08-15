@@ -1,3 +1,27 @@
+import re
+SEP = r"[×\-–❒]"
+
+# ---- LINHA: SEM quebra automática ----
+def get(d, *keys):
+    for k in keys:
+        v = d.get(k)
+        if v:
+            return str(v).strip()
+    return ""
+
+# 1) tente pegar manual do JSON
+linha1 = get(dados, "linha1", "linha_1", "linha_l1", "linha_parte1")
+linha2 = get(dados, "linha2", "linha_2", "linha_l2", "linha_parte2")
+
+# 2) se não vierem manualmente:
+#    - se quiser manter 100% manual, NÃO quebre.
+#    - use 'linha' inteira na primeira linha e deixe a segunda vazia.
+if not (linha1 or linha2):
+    linha1 = get(dados, "linha", "itinerario")
+    linha2 = ""
+
+valores["linha_valor_1"] = linha1
+valores["linha_valor_2"] = linha2
 from __future__ import annotations
 
 import json
@@ -220,6 +244,10 @@ def main():
         overlay_tmp.unlink()
     except Exception:
         pass
+    
+    png_out = out_pdf.replace(".pdf", ".png")
+    pdf_para_png_1bit(out_pdf, png_out, dpi=203, width_px=576, threshold=200)
+
 
     print("Gerado:", out_path)
     print("Fundo:", bg.name)
