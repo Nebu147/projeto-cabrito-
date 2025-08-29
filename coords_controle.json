@@ -1,0 +1,34 @@
+{
+  "_ref_width": 80,
+  "_ref_height": 130,
+
+  "origem_label":  {"texto":"ORIGEM: ",  "font":"Helvetica","pt":8.3,  "pos":[26.00,50.00], "align":"left"},
+  "origem_valor":  {"texto":"SINOP (MT)","font":"Helvetica-Bold","pt":8.2,  "pos":[39.00,50.00], "align":"left"},
+
+  "destino_label": {"texto":"DESTINO: ", "font":"Helvetica","pt":8.3,  "pos":[24,55], "align":"left"},
+  "destino_valor": {"texto":"NOVA MUTUM (MT)","font":"Helvetica-Bold","pt":8.2,  "pos":[38.3,55], "align":"left"},
+
+  "data_label":    {"texto":"Data: ",    "font":"Helvetica","pt":8.3,  "pos":[21.6,60.0], "align":"left"},
+  "data_valor":    {"texto":"13/05/2025 ","font":"Helvetica-Bold","pt":8.3,  "pos":[29.7,60], "align":"left"},
+  "horario_label": {"texto":" | ",       "font":"Helvetica","pt":8.3,  "pos":[44.0,60.0], "align":"left"},
+  "horario_valor": {"texto":"16:27:00 ","font":"Helvetica-Bold","pt":8.3,  "pos":[45.7,60.0], "align":"left"},
+
+  "poltrona_label":   {"texto":"(Poltrona: ","font":"Helvetica","pt":8.3, "pos":[22,65], "align":"left"},
+  "poltrona_valor":   {"texto":"16",      "font":"Helvetica-Bold","pt":9.3,"pos":[35.7,65.0], "align":"left"},
+  "plataforma_label": {"texto":"Plataforma: ","font":"Helvetica","pt":8.3,"pos":[40.0,65.0], "align":"left"},
+  "plataforma_valor": {"texto":"05)",     "font":"Helvetica-Bold","pt":9.3,  "pos":[55.3,65.0], "align":"left"},
+
+  "prefixo_label": {"texto":"Prefixo: ","font":"Helvetica","pt":8.3,  "pos":[6,70.0], "align":"left"},
+  "prefixo_valor": {"texto":"28410100","font":"Helvetica-Bold","pt":8.3,  "pos":[16,70.0], "align":"left"},
+
+  "linha_label":   {"texto":"Linha ","font":"Helvetica","pt":8.3,      "pos":[30,70.0], "align":"left"},
+  "linha_valor_1": {"texto":"CUIABÁ × GUARANTÃ DO ","font":"Helvetica-Bold","pt":8.3,"pos":[38,70.0],"align":"left"},
+  "linha_valor_2": {"texto":" NORTE","font":"Helvetica-Bold","pt":8.3,   "pos":[35.0,74],"align":"left"},
+
+  "tipo_label": {"texto":"Tipo: ", "font":"Helvetica","pt":8.0,         "pos":[29,78], "align":"left"},
+  "tipo_valor": {"texto":"EXECUTIVO","font":"Helvetica-Bold","pt":8.0,     "pos":[36.0,78], "align":"left"},
+
+  "passageiro_label":   {"texto":"PASSAGEIRO:","font":"Helvetica-Bold","pt":10,"pos":[7,88.0],"align":""},
+  "passageiro_valor_1": {"texto":"00647397242 - ELIAS ","font":"Helvetica-Bold","pt":10,"pos":[31,88.0],"align":""},
+  "passageiro_valor_2": {"texto":"RIBEIRO DE SOUZA","font":"Helvetica-Bold","pt":10,"pos":[28,93.5],"align":""}
+}
